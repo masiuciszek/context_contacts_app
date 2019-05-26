@@ -27,7 +27,7 @@ export default class Contact extends Component {
   }
 
   render() {
-    const { name, email, phone, id } = this.props.contact;
+    const { name, email, phone, id, address, company } = this.props.contact;
     const { show } = this.state;
     return (
       <Consumer>
@@ -50,7 +50,13 @@ export default class Contact extends Component {
                   {show ? (
                     <>
                       {' '}
-                      <p>email : {email}</p> <p> phone : {phone}</p>
+                      <p>email : {email}</p> <p> phone : {phone}</p>{' '}
+                      <p>City: {address.city}</p>
+                      <p>Street: {address.street}</p>
+                      <p>zipcode: {address.zipcode}</p>
+                      <p>Company name: {company.name}</p>
+                      <p>Company cathPhrase: {company.catchPhrase}</p>
+                      <p>Company bs: {company.bs}</p>
                     </>
                   ) : (
                     ''

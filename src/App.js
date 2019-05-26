@@ -9,6 +9,7 @@ import Contacts from './components/contacts/Contacts';
 import AddContact from './components/contacts/AddContact';
 import About from './components/pages/About';
 import NotFound from './components/pages/NotFound';
+import Test from './components/test/Test';
 
 export default function App() {
   return (
@@ -21,6 +22,7 @@ export default function App() {
             <Route exact path="/" component={Contacts} />
             <Route path="/about" component={About} />
             <Route path="/contact/add" component={AddContact} />
+            <Route path="/testing123" component={Test} />
             <Route component={NotFound} />
           </Switch>
         </Container>

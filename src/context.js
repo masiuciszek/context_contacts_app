@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import { data } from './helper';
 import { DELETE_CONTACT, ADD_CONTACT } from './types';
 
@@ -25,11 +26,17 @@ const reducer = (state, action) => {
 
 export class Provider extends Component {
   state = {
-    contacts: data,
+    contacts: [],
     dispatch: action => {
       this.setState(state => reducer(state, action));
     },
   };
+
+  componentDidMount() {
+    axios
+      .get('https://jsonplaceholder.typicode.com/users')
+      .then(resp => this.setState({ contacts: resp.data }));
+  }
 
   render() {
     return (
