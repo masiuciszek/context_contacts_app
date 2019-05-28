@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.js": "/context_contacts_app/static/js/main.d1c02b48.chunk.js",
+    "main.js.map": "/context_contacts_app/static/js/main.d1c02b48.chunk.js.map",
+    "runtime~main.js": "/context_contacts_app/static/js/runtime~main.be35c0c0.js",
+    "runtime~main.js.map": "/context_contacts_app/static/js/runtime~main.be35c0c0.js.map",
+    "static/js/2.396f07eb.chunk.js": "/context_contacts_app/static/js/2.396f07eb.chunk.js",
+    "static/js/2.396f07eb.chunk.js.map": "/context_contacts_app/static/js/2.396f07eb.chunk.js.map",
+    "index.html": "/context_contacts_app/index.html",
+    "precache-manifest.be9780a93f557f3cfd81eee5b079f6f6.js": "/context_contacts_app/precache-manifest.be9780a93f557f3cfd81eee5b079f6f6.js",
+    "service-worker.js": "/context_contacts_app/service-worker.js"
+  }
+}
