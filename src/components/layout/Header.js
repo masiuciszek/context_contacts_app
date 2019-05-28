@@ -57,6 +57,7 @@ const HeaderWrap = styled.div`
     padding: 0.5rem;
     margin-left: 16rem;
     position: relative;
+    color: ${mainColurs.blackPrimary};
   }
   ul {
     display: flex;

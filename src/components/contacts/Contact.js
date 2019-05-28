@@ -5,12 +5,16 @@ import { Delete } from 'styled-icons/typicons/Delete';
 import { Consumer } from '../../context';
 import { mainColurs } from '../../global/Globalstyles';
 import { DELETE_CONTACT } from '../../types';
+import { Link } from 'react-router-dom';
+import { Pencil } from 'styled-icons/evil/Pencil';
+import axios from 'axios';
+import { PenAlt } from 'styled-icons/fa-solid';
 
 export default class Contact extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      show: false,
+      show: false
     };
     this.toggleShow = this.toggleShow.bind(this);
     this.onDeleteClick = this.onDeleteClick.bind(this);
@@ -18,12 +22,17 @@ export default class Contact extends Component {
 
   toggleShow() {
     this.setState(prev => ({
-      show: !prev.show,
+      show: !prev.show
     }));
   }
 
-  onDeleteClick(id, dispatch) {
-    dispatch({ type: DELETE_CONTACT, payload: id });
+  async onDeleteClick(id, dispatch) {
+    try {
+      await axios.delete(`https://jsonplaceholder.typicode.com/users/${id}`);
+      dispatch({ type: DELETE_CONTACT, payload: id });
+    } catch (e) {
+      dispatch({ type: DELETE_CONTACT, payload: id });
+    }
   }
 
   render() {
@@ -46,17 +55,21 @@ export default class Contact extends Component {
                       onClick={this.onDeleteClick.bind(this, id, dispatch)}
                     />
                   </span>
+                  <Link to={`contact/edit/${id}`} id="edit-contact-icon">
+                    {' '}
+                    <PenAlt size="25" />{' '}
+                  </Link>
                   <h3> name: {name} </h3>
                   {show ? (
                     <>
                       {' '}
                       <p>email : {email}</p> <p> phone : {phone}</p>{' '}
-                      <p>City: {address.city}</p>
+                      {/* <p>City: {address.city}</p>
                       <p>Street: {address.street}</p>
                       <p>zipcode: {address.zipcode}</p>
                       <p>Company name: {company.name}</p>
                       <p>Company cathPhrase: {company.catchPhrase}</p>
-                      <p>Company bs: {company.bs}</p>
+                      <p>Company bs: {company.bs}</p> */}
                     </>
                   ) : (
                     ''
@@ -101,6 +114,12 @@ export const Card = styled.div`
     .delete-icon {
       float: right;
       color: ${mainColurs.tomato};
+    }
+    #edit-contact-icon {
+      margin-top: 0.5rem;
+      float: right;
+      color: ${mainColurs.white};
+      cursor: pointer;
     }
     .dropIcon {
       cursor: pointer;

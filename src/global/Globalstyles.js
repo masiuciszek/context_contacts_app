@@ -5,9 +5,10 @@ export const mainColurs = {
   blackLight: '#262730',
   brown: '#694D4C',
   tomato: '#F05408',
+  tomato2: '#Fd7708',
   goldenBrown: '#9E7F65',
   white: '#fff',
-  transparentLight: 'rgba(229,229,229,.2)',
+  transparentLight: 'rgba(229,229,229,.2)'
 };
 
 export const GlobalStyle = createGlobalStyle`
@@ -27,7 +28,7 @@ export const GlobalStyle = createGlobalStyle`
     font-family: 'Mandali', sans-serif;
     color: ${mainColurs.white};
     background:  linear-gradient(to left, ${mainColurs.blackPrimary}, ${
-  mainColurs.tomato
+  mainColurs.white
 });
     height: 100vh;
   }

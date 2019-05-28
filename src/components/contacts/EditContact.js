@@ -1,19 +1,16 @@
-/* eslint-disable react/jsx-no-bind */
+import { Consumer } from '../../context';
 import React, { Component } from 'react';
 import styled from 'styled-components';
-
 import { ArrowDropDown } from 'styled-icons/material/ArrowDropDown';
 import { Card } from './Contact';
-import { ADD_CONTACT } from '../../types';
+import { ADD_CONTACT, UPDATED_CONTACT } from '../../types';
 import { mainColurs } from '../../global/Globalstyles';
 import { Button } from '../../global/button';
-import { Consumer } from '../../context';
 import TextInputGroup from '../layout/TextInputGroup';
 import axios from 'axios';
-import { shake } from '../../global/animation';
-import { PersonPinDimensions } from 'styled-icons/material/PersonPin/PersonPin';
+import { Form } from './AddContact';
 
-export default class AddContact extends Component {
+export default class EditContact extends Component {
   constructor() {
     super();
     this.state = {
@@ -26,6 +23,19 @@ export default class AddContact extends Component {
     this.onChange = this.onChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.toggleShow = this.toggleShow.bind(this);
+  }
+
+  async componentDidMount() {
+    const { id } = this.props.match.params;
+    const res = await axios.get(
+      `https://jsonplaceholder.typicode.com/users/${id}`
+    );
+    const contact = res.data;
+    this.setState({
+      name: contact.name,
+      email: contact.email,
+      phone: contact.phone
+    });
   }
 
   onChange(e) {
@@ -49,17 +59,29 @@ export default class AddContact extends Component {
       return;
     }
 
+    const updatedContact = {
+      name,
+      email,
+      phone
+    };
+    const { id } = this.props.match.params;
+    const res = await axios.put(
+      `https://jsonplaceholder.typicode.com/users/${id}`,
+      updatedContact
+    );
+    dispatch({ type: UPDATED_CONTACT, payload: res.data });
+
     const newContact = {
       name,
       email,
       phone
     };
 
-    const res = await axios.post(
+    const resp = await axios.post(
       'https://jsonplaceholder.typicode.com/users',
       newContact
     );
-    dispatch({ type: ADD_CONTACT, payload: res.data });
+    dispatch({ type: ADD_CONTACT, payload: resp.data });
 
     this.setState(prev => ({
       name: (prev.name = ''),
@@ -97,7 +119,7 @@ export default class AddContact extends Component {
               >
                 <div className="card-body">
                   <h3 style={{ color: '#000' }}>
-                    Add Contact{' '}
+                    Edit Contact{' '}
                     <span onClick={this.toggleShow}>
                       {' '}
                       <ArrowDropDown size="55" className="dropIcon" />{' '}
@@ -139,7 +161,7 @@ export default class AddContact extends Component {
                         colour={mainColurs.white}
                         hoverBG={mainColurs.blackLight}
                       >
-                        Add Contact
+                        Update Contact
                       </Button>
                     </Form>
                   ) : null}
@@ -152,33 +174,3 @@ export default class AddContact extends Component {
     );
   }
 }
-
-export const Form = styled.form`
-  padding: 3rem;
-  label {
-    font-size: 1.7rem;
-    margin-right: 0.5rem;
-  }
-  input {
-    border: none;
-    padding: 0.8rem 0.9rem;
-    width: 100%;
-    margin: 0.9rem 0;
-    border-radius: 1.4rem;
-  }
-  button {
-    margin: 1.4rem 0 0 0;
-    width: 100%;
-    border: none;
-  }
-
-  .diplay-error {
-    border: 2px solid ${mainColurs.blackPrimary};
-    background: ${mainColurs.tomato};
-    color: ${mainColurs.white};
-  }
-  .shake {
-    animation-name: ${shake};
-    animation-duration: 1.2s;
-  }
-`;
